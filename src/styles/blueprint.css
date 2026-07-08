@@ -1,6 +1,27 @@
 /* Ported faithfully from portfolio-prototype.html — these are hand-tuned pixel
    values and gradients, not something to "clean up" into Tailwind utilities. */
 
+/* Every foreground <section> is a positioned stacking context above the
+   fixed background scene (z-index:0), or it would paint underneath it
+   regardless of DOM order. Sections are pointer-events:none by default so
+   clicks in the gaps between content reach the caliper/micrometer buttons
+   underneath; interactive content re-enables pointer-events explicitly. */
+section {
+	position: relative;
+	z-index: 1;
+	pointer-events: none;
+}
+.panel,
+.card,
+.spec-sheet,
+section a,
+section button,
+section input,
+section textarea,
+section label {
+	pointer-events: auto;
+}
+
 /* the whole background composition lives at a fixed pixel size — it never rescales with the window */
 .bg-scene {
 	position: fixed;
