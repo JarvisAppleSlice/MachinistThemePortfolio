@@ -1,0 +1,12 @@
+export function PrintTitleblock() {
+	return (
+		<div className="print-titleblock">
+			<div className="ptb-proprietary">
+				<strong>PROPRIETARY AND CONFIDENTIAL</strong> — THE INFORMATION CONTAINED IN THIS
+				DRAWING IS THE SOLE PROPERTY OF SAMUEL JARVIS. ANY REPRODUCTION IN PART OR AS A
+				WHOLE WITHOUT WRITTEN PERMISSION IS STRICTLY PROHIBITED — UNLESS YOU'RE HERE TO
+				MAKE AN OFFER, IN WHICH CASE, SKIP THE PAPERWORK AND GO STRAIGHT TO CONTACT.
+			</div>
+		</div>
+	);
+}
