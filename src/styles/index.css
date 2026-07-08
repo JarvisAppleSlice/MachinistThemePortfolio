@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--paper: #f5f3ee;
+	--ink: #1a1d21;
+	--blue: #1b4e91;
+	--blue-light: #4c7fc7;
+	--blue-dark: #0f1f35;
+	--brass: #c17a3d;
+	--steel: #5b6570;
+	--red: #d6451e;
+	--line: rgba(27, 78, 145, 0.18);
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	background:
+		repeating-linear-gradient(
+			0deg,
+			rgba(0, 0, 0, 0.05) 0 1px,
+			transparent 1px 6px,
+			rgba(0, 0, 0, 0.025) 6px 7px,
+			transparent 7px 16px
+		),
+		radial-gradient(ellipse at 50% 40%, #e8d9b5 0%, #d9c293 55%, #c7aa72 100%);
+	background-attachment: fixed, fixed;
+	color: var(--ink);
+	font-family: "Inter", sans-serif;
+	overflow-x: hidden;
+	/* hide native scrollbar — the caliper renders as the visual scroll indicator instead */
+	scrollbar-width: none;
+}
+body::-webkit-scrollbar {
+	display: none;
+}
