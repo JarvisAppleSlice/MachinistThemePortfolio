@@ -11,5 +11,5 @@
 		"strict": true,
 		"types": ["node"]
 	},
-	"include": ["api", "src/utils/validation.ts", "src/types/contact.ts"]
+	"include": ["api"]
 }

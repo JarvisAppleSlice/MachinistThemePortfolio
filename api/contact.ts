@@ -1,11 +1,47 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { Resend } from "resend";
-import { validateContactForm } from "../src/utils/validation";
-import type { ContactFormValues } from "../src/types/contact";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? "samuel.s.jarvis@gmail.com";
 const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL ?? "onboarding@resend.dev";
+
+// Mirrors src/utils/validation.ts's rules. Duplicated rather than imported:
+// this function is bundled by Vercel's Node builder, a separate pipeline
+// from the Vite frontend build, and cross-directory imports into src/ don't
+// resolve reliably at runtime under that builder.
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+interface ContactFormValues {
+	name: string;
+	email: string;
+	message: string;
+}
+
+interface ContactFormErrors {
+	name?: string;
+	email?: string;
+	message?: string;
+}
+
+function validateContactForm(values: ContactFormValues): ContactFormErrors {
+	const errors: ContactFormErrors = {};
+
+	if (values.name.trim().length < 2 || values.name.trim().length > 50) {
+		errors.name = "Name must be between 2 and 50 characters.";
+	}
+
+	if (values.email.trim().length < 2 || values.email.trim().length > 100) {
+		errors.email = "Email must be between 2 and 100 characters.";
+	} else if (!EMAIL_PATTERN.test(values.email.trim())) {
+		errors.email = "Enter a valid email address.";
+	}
+
+	if (values.message.trim().length < 2 || values.message.trim().length > 1000) {
+		errors.message = "Message must be between 2 and 1000 characters.";
+	}
+
+	return errors;
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
 	if (req.method !== "POST") {
